@@ -1,4 +1,5 @@
 import React from 'react';
+import { getHeaders } from '~/utils/HeaderManager';
 import Editor from '@stfy/react-editor.js';
 
 import header from '@editorjs/header';
@@ -21,7 +22,17 @@ export default () => (
     tools={{
       header,
       list,
-      image,
+      image: {
+        class: image,
+        config: {
+          field: 'file',
+          additionalRequestHeaders: getHeaders(),
+          endpoints: {
+            byFile: './api/files', // Your backend file uploader endpoint
+            byUrl: './api/fileUrls', // Your endpoint that provides uploading by Url
+          },
+        },
+      },
       embed,
       quote,
       marker,

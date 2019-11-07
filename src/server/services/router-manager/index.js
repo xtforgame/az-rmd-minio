@@ -1,5 +1,6 @@
 import ServiceBase from '../ServiceBase';
 // ========================================
+import FileRouter from '~/routers/FileRouter';
 import MainRouter from '~/routers/MainRouter';
 import SessionRouter from '~/routers/SessionRouter';
 import UserRouter from '~/routers/UserRouter';
@@ -15,13 +16,15 @@ export default class RouterManager extends ServiceBase {
 
   static $type = 'service';
 
-  static $inject = ['httpApp', 'mailer'];
+  static $inject = ['httpApp', 'mailer', 'minioApi'];
 
-  constructor(httpApp, mailer) {
+  constructor(httpApp, mailer, minioApi) {
     super();
     this.mailer = mailer;
+    this.minioApi = minioApi;
 
     this.routers = [
+      FileRouter,
       MainRouter,
       SessionRouter,
       UserRouter,
@@ -33,8 +36,9 @@ export default class RouterManager extends ServiceBase {
       ModuleComplierRouter,
     ]
     .map(Router => new Router({
+      httpApp,
       mailer: this.mailer,
-      zcfService: this.zcfService,
+      minioApi: this.minioApi,
     }).setupRoutes(httpApp.appConfig));
   }
 

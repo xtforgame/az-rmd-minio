@@ -1,11 +1,9 @@
 /* eslint-disable react/no-multi-comp */
 
 import React from 'react';
-import useDialogState from '~/hooks/useDialogState';
+import useDialogState, { Cancel } from '~/hooks/useDialogState';
 import FdiDialog from './FdiDialog';
 import FdiButton from './FdiButton';
-
-export const Cancel = Symbol('Cancel');
 
 /*
   props:

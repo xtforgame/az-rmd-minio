@@ -2,7 +2,7 @@ import path from 'path';
 import appRootPath from 'app-root-path';
 
 const appRoot = appRootPath.resolve('./');
-const secretsFolder = path.join(appRoot, 'secrets');
+const secretsFolder = process.env.VXL_AFS_SECRETS_FOLDER || path.join(appRoot, 'secrets');
 
 const credentialFiles = {
   basePath: path.join(secretsFolder, 'ssl'),
@@ -32,6 +32,14 @@ const mailerConfig = {
   tokenFile: path.join(secretsFolder, 'gmail', 'token.json'),
 };
 
+const minioInfoConfig = {
+  endPoint: 'minio1',
+  port: 9000,
+  useSSL: false,
+  accessKey: 'minioxxxak',
+  secretKey: 'minioxxxsk',
+};
+
 export {
   credentialFiles,
   jwtSecretFiles,
@@ -42,4 +50,6 @@ export {
   externalUrl,
 
   mailerConfig,
+
+  minioInfoConfig,
 };
