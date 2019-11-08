@@ -4,7 +4,7 @@ import { Client } from 'minio';
 import { minioInfoConfig } from 'config';
 import ServiceBase from '../ServiceBase';
 
-const bucketName = 'fitwatcher';
+const bucketName = 'az-rmd-minio';
 // const defaultBotNameOnMinio = 'wasm-basic-001';
 
 // Instantiate the minio client with the endpoint

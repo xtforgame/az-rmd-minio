@@ -37,7 +37,12 @@ export default () => (
       quote,
       marker,
       code,
-      link,
+      link: {
+        class: link,
+        config: {
+          endpoint: './api/fetchUrl',
+        },
+      },
       delimiter,
       raw,
       table,

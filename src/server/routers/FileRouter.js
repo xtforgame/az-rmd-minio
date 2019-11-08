@@ -7,6 +7,7 @@ import {
 } from 'az-restful-helpers';
 // import fs from 'fs';
 import multer from 'koa-multer';
+import { linkPreview } from 'link-preview-node';
 import RouterBase from '../core/router-base';
 import fakeUserManager from '../utils/fakeUserManager';
 
@@ -127,6 +128,40 @@ export default class FileRouter extends RouterBase {
       .catch(() => {
         return RestfulError.koaThrowWith(ctx, 400, 'Invalid Image Url');
       });
+    });
+
+    router.get('/api/fetchUrl', fakeUserManager.getIdentity, async (ctx, next) => {
+      let title = 'Link';
+      let description = ctx.request.query.url;
+      let imageUrl = './mail-assets/logo.png';
+      try {
+        const resp = await linkPreview(ctx.request.query.url)
+        // console.log(resp);
+        /* { image: 'https://static.npmjs.com/338e4905a2684ca96e08c7780fc68412.png',
+            title: 'npm | build amazing things',
+            description: '',
+            link: 'http://npmjs.com' } */
+        // Note that '' is used when value of any detail of the link is not available
+        title = resp.title || title;
+        description = resp.description || description;
+        imageUrl = resp.image || imageUrl;
+      } catch (catchErr) {
+        console.log(catchErr);
+      }
+      return ctx.body = {
+        success: 1,
+        file: {
+          url: ctx.request.query.url,
+        },
+        meta: {
+          title,
+          site_name: title,
+          description,
+          image: {
+            url: imageUrl,
+          },
+        },
+      };
     });
   }
 }
