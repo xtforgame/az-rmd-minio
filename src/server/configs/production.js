@@ -32,6 +32,14 @@ const mailerConfig = {
   tokenFile: path.join(secretsFolder, 'gmail', 'token.json'),
 };
 
+const minioInfoConfig = {
+  endPoint: 'minio1',
+  port: 9000,
+  useSSL: false,
+  accessKey: 'minioxxxak',
+  secretKey: 'minioxxxsk',
+};
+
 export {
   credentialFiles,
   jwtSecretFiles,
@@ -42,4 +50,6 @@ export {
   externalUrl,
 
   mailerConfig,
+
+  minioInfoConfig,
 };

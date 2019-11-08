@@ -9,6 +9,7 @@ import EnvCfg from '~/services/env-cfg';
 import HttpApp from '~/services/http-app';
 import RouterManager from '~/services/router-manager';
 import Mailer from '~/services/mailer';
+import MinioApi from '~/services/minio';
 
 class Server {
   ioc : any;
@@ -19,6 +20,7 @@ class Server {
       HttpApp,
       RouterManager,
       Mailer,
+      MinioApi,
     ]);
 
     this.ioc.digest();
